@@ -1,0 +1,146 @@
+<!-- 
+<h2>ngIf</h2>
+<h3>Option 1</h3>
+<div *ngIf="courses.length > 0">List of Courses</div>
+<div *ngIf="courses.length == 0">No data</div>
+
+<h3>Option 3</h3>
+<div *ngIf="courses.length > 0; else noCourses">List of Courses</div>
+<ng-template #noCourses>No data</ng-template>
+
+<h3>Option 3</h3>
+<div *ngIf="courses.length > 0; then coursesList; else noCourses"></div>
+<ng-template #coursesList>List of Courses</ng-template>
+<ng-template #noCourses>No data</ng-template>
+<hr />
+
+<h2>Using Hidden</h2>
+<div [hidden]="courses.length == 0">List of Courses</div>
+<div [hidden]="courses.length > 0">No Data</div>
+
+<h2>Using Style Binding</h2>
+<div [style.display]="courses.length > 0 ? 'block' : 'none'">
+  List of Courses stlyle binding
+</div>
+<div [style.visible]="courses.length > 0 ? 'visible' : 'hidden'">
+  List of Courses style binding
+</div>
+<div [class.hidden]="courses.length == 0">List of Courses class binding</div>
+<div [class.hidden]="courses.length > 0">No Data class binding</div> -->
+
+<h2>ngSwitchCase</h2>
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [class.active]="mode == 'vertical'"
+      href="#"
+      (click)="onModeChange('vertical')"
+      >Vertical</a
+    >
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [class.active]="mode == 'horizontal'"
+      href="#"
+      (click)="onModeChange('horizontal')"
+      >Horizontal</a
+    >
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [class.active]="mode == 'list'"
+      href="#"
+      (click)="onModeChange('list')"
+      >Default</a
+    >
+  </li>
+</ul>
+<div [ngSwitch]="mode">
+  <div *ngSwitchCase="'vertical'">
+    <div>Course 1</div>
+    <div>Course 2</div>
+  </div>
+  <div *ngSwitchCase="'horizontal'">
+    <span>Course 1</span>
+    <span>Course 2</span>
+  </div>
+  <ul *ngSwitchDefault>
+    <li>Course 1</li>
+    <li>Course 2</li>
+  </ul>
+</div>
+
+<!-- <div>
+  <div *ngIf="mode == 'vertical'">
+    <div>Course 1</div>
+    <div>Course 2</div>
+  </div>
+  <div *ngIf="mode == 'horizontal'">
+    <span>Course 1</span>
+    <span>Course 2</span>
+  </div>
+  <ul *ngIf="mode !== 'horizontal' && mode !== 'vertical'">
+    <li>Course 1</li>
+    <li>Course 2</li>
+  </ul>
+</div> -->
+<hr />
+
+<h2>ngFor</h2>
+<button (click)="onLoad()">Load Courses</button>
+
+<div>
+  <input type="text" #courseName />
+  <input type="button" value="Add" (click)="onAdd(courseName.value)" />
+</div>
+<ul>
+  <li
+    *ngFor="let c of courses; index as i; odd as o; trackBy: trackCourses"
+    [class]="o ? 'odd' : 'even'"
+  >
+    <!-- <span>{{ i }}</span> - {{ c.name }} - {{ o }} -->
+    {{ c.name }} {{ c.creator?.companyName }}
+    <button (click)="onDelete(c)">Remove</button>
+    <button (click)="onUpdate(c)">Update</button>
+  </li>
+</ul>
+
+<h2>Atrtibute Directive</h2>
+<button
+  [style.background-color]="flag ? 'blue' : 'green'"
+  [style.color]="flag ? 'white' : 'yellow'"
+  [style.font-size]="flag ? '20px' : '25px'"
+>
+  Button 1
+</button>
+<button
+  [ngStyle]="{
+    'background-color': flag ? 'blue' : 'green',
+    color: flag ? 'white' : 'yellow',
+    'font-size': flag ? '20px' : '25px'
+  }"
+>
+  Button 1
+</button>
+<button
+  [style]="{
+    'background-color': flag ? 'blue' : 'green',
+    color: flag ? 'white' : 'yellow',
+    'font-size': flag ? '20px' : '25px'
+  }"
+>
+  Button 1
+</button>
+<br />
+<button [class.btn]="flag" [class.btn-primary]="flag">Button 1</button>
+<button [ngClass]="{ btn: flag, 'btn-primary': flag }">Button 1</button>
+<button [class]="{ btn: flag, 'btn-primary': flag }">Button 1</button>
+
+<hr />
+
+<h2>Custom Directive</h2>
+<div>First Name: <input type="text" appInputFormat="uppercase" /></div>
+<div>Last Name: <input type="text" appInputFormat="lowercase" /></div>

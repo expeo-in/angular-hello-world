@@ -1,0 +1,94 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="registrationForm.errors?.invalidLogin" class="alert alert-danger">
+    Login failed, check email and password
+  </div>
+  <div class="mb-3">
+    <label for="emaiid" class="form-label">Email address</label>
+    <input
+      type="text"
+      class="form-control"
+      id="email_id"
+      name="email_id"
+      formControlName="email"
+    />
+  </div>
+  <div class="alert alert-danger" *ngIf="email?.touched && email?.invalid">
+    <div *ngIf="email?.errors?.required">Email is required</div>
+    <div *ngIf="email?.errors?.minlength">Email should be 5 chars</div>
+    <!-- <div *ngIf="email?.errors?.email">Should be valid email</div> -->
+    <div *ngIf="email?.errors?.shouldNotContainSpace">
+      Email should not contain white space
+    </div>
+    <div *ngIf="email?.errors?.isEmailTaken">Email already taken</div>
+  </div>
+  <div *ngIf="email?.pending">Checking email</div>
+  <div class="mb-3">
+    <label for="emaiid" class="form-label">Password</label>
+    <input
+      type="text"
+      class="form-control"
+      id="pwd"
+      name="pwd"
+      formControlName="password"
+    />
+  </div>
+  <div
+    class="alert alert-danger"
+    *ngIf="password?.touched && password?.invalid"
+  >
+    <div *ngIf="password?.errors?.required">Password is required</div>
+    <div *ngIf="password?.errors?.minlength">
+      Password should be {{ password?.errors?.minlength.requiredLength }} chars
+    </div>
+  </div>
+  <div formGroupName="personalInfo">
+    <h3>Personal Info</h3>
+    <div class="mb-3">
+      <label for="emaiid" class="form-label">Firstname</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        name="firstName"
+        formControlName="firstName"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="emaiid" class="form-label">Lastname</label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        name="lastName"
+        formControlName="lastName"
+      />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="skills" class="form-label">Skills</label>
+    <input
+      type="text"
+      class="form-control"
+      id="skills"
+      name="skills"
+      #skill
+      (keyup.enter)="addSkill(skill)"
+    />
+  </div>
+
+  <ul>
+    <li *ngFor="let skill of skillsets.controls">
+      {{ skill.value }}
+      <button
+        class="btn btn-secondary"
+        type="button"
+        (click)="removeSkill(skill)"
+      >
+        Remove
+      </button>
+    </li>
+  </ul>
+
+  <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+</form>

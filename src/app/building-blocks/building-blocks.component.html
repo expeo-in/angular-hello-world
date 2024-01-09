@@ -1,0 +1,130 @@
+<h1>Hello World</h1>
+
+<app-card>
+  <div class="heading">Angular</div>
+  <div class="body">Front end framework</div>
+</app-card>
+
+<app-card>
+  <ng-container class="heading">Angular</ng-container>
+  <ng-container class="body">Front end framework</ng-container>
+</app-card>
+
+<h2>Component API</h2>
+<!-- <like [count]="likeCount" [dislikeCount]="2"></like> -->
+<app-like [count]="150" (increment)="onLiked($event)"></app-like>
+<app-like
+  [count]="50"
+  control-type="dislike"
+  (increment)="onDisliked($event)"
+></app-like>
+<hr />
+
+<app-favorite></app-favorite>
+
+<h2>Pipes</h2>
+<h3>Built-in Pipes</h3>
+<p>{{ title }}</p>
+<p>Uppercase: {{ title | uppercase | lowercase }}</p>
+<p>Lowercase: {{ title | lowercase }}</p>
+<p>{{ amount }}</p>
+<p>{{ amount | number : "5.1-3" }}</p>
+<p>{{ amount | currency : "INR" : "symbol" : "5.1-2" }}</p>
+<p>{{ today }}</p>
+<p>{{ today | date | uppercase }}</p>
+
+<h3>Custom Pipes</h3>
+<div>{{ detail | summary : 50 }}</div>
+
+<h2>Components</h2>
+<courses></courses>
+<app-course-detail></app-course-detail>
+<app-todo></app-todo>
+
+<h2>String Interpolation</h2>
+<h3>{{ title }}</h3>
+<p>{{ email }}</p>
+<hr />
+
+<h3>{{ title + " Template " }}</h3>
+<div>Today is {{ getDate() }}</div>
+<div>Sum of 1 + 2 = {{ 1 + 2 }}</div>
+<img src="{{ imageUrl }}" />
+
+<h2>Property Binding</h2>
+<h3 [textContent]="title"></h3>
+<p [textContent]="email"></p>
+
+<img [src]="imageUrl" />
+<input [value]="email" />
+<input [value]="'email'" />
+<input value="email" />
+
+<table border="1">
+  <tr>
+    <td style="width: 100px">1</td>
+    <td style="width: 100px">2</td>
+  </tr>
+  <tr>
+    <td [colSpan]="mergeCells">3</td>
+  </tr>
+</table>
+<hr />
+
+<h2>Attribute Binding</h2>
+<table border="1">
+  <tr>
+    <td style="width: 100px">1</td>
+    <td style="width: 100px">2</td>
+  </tr>
+  <tr>
+    <td [attr.colspan]="mergeCells">3</td>
+  </tr>
+</table>
+<img [attr.src]="imageUrl" />
+<hr />
+
+<h2>Class Binding</h2>
+<ul>
+  <li>one</li>
+  <li class="class1" [class.active]="flag">two</li>
+  //add or remove class based on condition
+  <li [class]="itemClasses">three</li>
+</ul>
+<hr />
+
+<h2>Style Binding</h2>
+<h3>Single Style</h3>
+<!-- <div [style.background-color]="flag ? 'red' : 'green'">Some text</div> -->
+<div [style.backgroundColor]="flag ? 'red' : 'green'">Some text</div>
+
+<h3>Multi Style</h3>
+<div [style]="getStyles()">another div</div>
+<hr />
+
+<h2>Event Binding</h2>
+<div>
+  <button (click)="showMessage($event)">Click</button>
+</div>
+Textbox: <input type="text" (keyup.enter)="showInput($event)" /> Textbox:
+<input type="text" (keyup)="onKeyupPressed($event)" />
+<hr />
+
+<h2>Template Reference Variables</h2>
+Name:
+<input type="text" #firstName (input)="logName(firstName.value)" />
+<hr />
+
+<h2>Two Way Binding</h2>
+<h3>Property and Event Binding</h3>
+<input [value]="email" (input)="onEmailChanged($event)" />
+<input [value]="email" #myemail (input)="email = myemail.value" />
+<p>{{ email }}</p>
+
+<h3>ngModel</h3>
+<input [(ngModel)]="email" />
+Enter Mobile: <input [(ngModel)]="mobile" />
+<button (click)="submitForm()">Submit</button>
+<hr />
+
+<div></div>

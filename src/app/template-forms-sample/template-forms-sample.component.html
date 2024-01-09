@@ -1,0 +1,131 @@
+<form class="col-6" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div class="mb-3">
+    <label for="emaiid" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email_id"
+      name="email_id"
+      ngModel
+      #email="ngModel"
+      (change)="onEmailChange(email)"
+      required
+    />
+  </div>
+  <div *ngIf="email.touched && !email.valid" class="alert alert-danger">
+    Email is required
+  </div>
+  <div class="mb-3">
+    <label for="pwd" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="pwd"
+      ngModel
+      name="pwd"
+      #pwd="ngModel"
+      required
+      minlength="5"
+      pattern="[a-zA-Z]+"
+      (change)="onPwdChange(pwd)"
+    />
+  </div>
+  <div class="alert alert-danger" *ngIf="pwd.touched && pwd.invalid">
+    <div *ngIf="pwd.errors?.required">Password is required</div>
+    <div *ngIf="pwd.errors?.minlength">
+      Password should contains minimum
+      {{ pwd.errors?.minlength.requiredLength }} chars
+    </div>
+    <div *ngIf="pwd.errors?.pattern">
+      Password should contain only alphabets
+    </div>
+  </div>
+
+  <fieldset ngModelGroup="personalInfo" #pi="ngModelGroup">
+    <legend>Personal Information</legend>
+    <div>
+      <label for="fullname" class="form-label">Full Name:</label>
+      <input
+        type="text"
+        id="fullname"
+        name="fullname"
+        class="form-control"
+        ngModel
+      />
+    </div>
+    <div class="form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="graduate"
+        name="graduate"
+        value="true"
+        ngModel
+      />
+      <label class="form-check-label" for="graduate">Graduate</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        id="female"
+        class="form-check-input"
+        name="gender"
+        value="female"
+        ngModel
+      />
+      <label for="female" class="form-check-label">Female</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        id="male"
+        class="form-check-input"
+        name="gender"
+        value="male"
+        ngModel
+      />
+      <label for="male" class="form-check-label">Male</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        id="trasngender"
+        class="form-check-input"
+        name="gender"
+        value="trasngender"
+        ngModel
+      />
+      <label for="trasngender" class="form-check-label">trasngender</label>
+    </div>
+    <div>
+      Country
+      <select name="country" ngModel>
+        <option value="">Select Country</option>
+        <option *ngFor="let c of countries" [value]="c.id">{{ c.name }}</option>
+      </select>
+    </div>
+    <div>
+      State
+      <input type="text" list="statelist" />
+      <datalist id="statelist">
+        <option>TN</option>
+        <option>AP</option>
+      </datalist>
+    </div>
+    <div>
+      Description
+      <textarea
+        style="width: 100px; height: 100px"
+        ngModel
+        name="description"
+      ></textarea>
+    </div>
+  </fieldset>
+  <div *ngIf="pi.invalid"></div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+    Submit
+  </button>
+
+  <!-- <p>{{ f.value | json }}</p> -->
+</form>
